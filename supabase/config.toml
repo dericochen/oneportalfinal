@@ -1,0 +1,15 @@
+# Konfigurasi minimal Supabase untuk `supabase config push`.
+# Hanya properti yang ditulis di sini yang dikirim ke project; sisanya tidak diubah.
+project_id = "oneportal"
+
+[auth]
+# URL situs produksi (tautan di email auth dan redirect).
+site_url = "https://oneportal-one.vercel.app"
+additional_redirect_urls = ["http://localhost:3000"]
+enable_signup = true
+
+[auth.email]
+enable_signup = true
+# Dimatikan: pengirim email bawaan Supabase dibatasi 2 email/jam dan hanya ke
+# anggota tim, sehingga juri tidak bisa mendaftar bila konfirmasi menyala.
+enable_confirmations = false

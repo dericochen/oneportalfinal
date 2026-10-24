@@ -1,0 +1,28 @@
+name: Periksa
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  periksa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Audit desain (pola "rasa AI")
+        run: npm run audit:desain
+      - run: npm run lint
+      - run: npm run typecheck
+      - name: Uji migrasi, alur status, dan RLS (PGlite lokal)
+        run: npm run db:uji
+      - run: npm run build

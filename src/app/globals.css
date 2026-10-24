@@ -1,0 +1,862 @@
+@import "tailwindcss";
+
+/*
+ * Token ONE PORTAL "natural Nusantara Medan" (v2). Sumber kebenaran: DESIGN.md.
+ * Palet, radius, bayangan, blur, ukuran teks, dan animasi bawaan Tailwind
+ * dimatikan (`initial`) agar kelas di luar token tidak menghasilkan CSS.
+ */
+@theme static {
+  --color-*: initial;
+  /* Netral hangat (bernuansa hijau-tanah) */
+  --color-aspal: #1c2620;
+  --color-aspal-2: #46534b;
+  --color-putih: #ffffff;
+  --color-abu: #f3f2ec;
+  --color-pasir: #f6f3ea;
+  --color-garis: #d9ddd0;
+  --color-garis-tegas: #66705f;
+  /* Makna (rambu): tidak berubah */
+  --color-kuning: #ffc629;
+  --color-biru: #1f57b8;
+  --color-hijau: #1f7a4a;
+  --color-oranye: #b85412;
+  --color-merah: #b42318;
+  /* Natural: hutan Medan, dedaunan, tanah, emas Istana Maimun */
+  --color-hutan: #17432d;
+  --color-hutan-2: #235a3d;
+  --color-daun: #3b8b5a;
+  --color-lumut: #e4efdc;
+  --color-lumut-2: #f1f7ec;
+  --color-tanah: #8b5a2b;
+  --color-emas: #c9962b;
+  /* Warna logo "Medan Untuk Semua" */
+  --color-medan-merah: #a3191e;
+  --color-medan-biru: #17216b;
+
+  --radius-*: initial;
+  --radius-sm: 0.25rem; /* 4 px: chip, pelat, thumbnail */
+  --radius-md: 0.5rem; /* 8 px: tombol, kolom isian, toast */
+  --radius-lg: 0.875rem; /* 14 px: kartu, panel, dialog */
+  --radius-daun: 2rem; /* 32 px: sudut berbentuk daun (dua sudut berseberangan) */
+
+  --shadow-*: initial;
+  --shadow-lapis: 0 8px 24px rgb(28 38 32 / 0.18), 0 1px 3px rgb(28 38 32 / 0.12);
+  --shadow-embun: 0 1px 2px rgb(23 67 45 / 0.08), 0 8px 24px rgb(23 67 45 / 0.1);
+  --shadow-angkat: 0 2px 4px rgb(23 67 45 / 0.1), 0 16px 36px rgb(23 67 45 / 0.18);
+  --inset-shadow-*: initial;
+  --drop-shadow-*: initial;
+  --text-shadow-*: initial;
+  --blur-*: initial;
+
+  --text-*: initial;
+  --text-publik: var(--ukuran-publik);
+  --text-publik--line-height: 1.55;
+  --text-staf: 1rem;
+  --text-staf--line-height: 1.55;
+  --text-kecil: 0.9375rem;
+  --text-kecil--line-height: 1.5;
+  --text-kecil-staf: 0.875rem;
+  --text-kecil-staf--line-height: 1.45;
+  --text-h3: var(--ukuran-h3);
+  --text-h3--line-height: 1.2;
+  --text-h2: clamp(1.5rem, 1.2rem + 1.2vw, 1.875rem);
+  --text-h2--line-height: 1.2;
+  --text-h1: clamp(1.875rem, 1.4rem + 2vw, 2.5rem);
+  --text-h1--line-height: 1.2;
+  --text-hero: clamp(2.125rem, 1.5rem + 2.8vw, 3.25rem);
+  --text-hero--line-height: 1.1;
+  --text-kode-besar: clamp(1.75rem, 1.3rem + 2vw, 2.25rem);
+  --text-kode-besar--line-height: 1.1;
+  --text-angka: clamp(2rem, 1.5rem + 2vw, 2.75rem);
+  --text-angka--line-height: 1;
+
+  --container-*: initial;
+  --container-baca: 68ch;
+  --container-teks: 45rem; /* 720 px */
+  --container-daftar: 60rem; /* 960 px */
+  --container-situs: 70rem; /* 1120 px: lebar utama halaman publik */
+  --container-form: 35rem; /* 560 px */
+
+  --ease-*: initial;
+  --ease-keluar: cubic-bezier(0.2, 0, 0, 1);
+  --ease-tumbuh: cubic-bezier(0.34, 1.4, 0.64, 1);
+
+  --animate-*: initial;
+  --animate-putar: putar 0.9s linear infinite;
+  --animate-cap: cap-masuk 220ms cubic-bezier(0.2, 0, 0, 1) both;
+  --animate-sheet: sheet-naik 220ms cubic-bezier(0.2, 0, 0, 1) both;
+  --animate-muncul: muncul 150ms cubic-bezier(0.2, 0, 0, 1) both;
+  /* Natural: masuk perlahan, daun melayang, penanda peta */
+  --animate-naik: naik 700ms cubic-bezier(0.2, 0, 0, 1) both;
+  --animate-pin: pin-jatuh 380ms cubic-bezier(0.34, 1.4, 0.64, 1) both;
+  --animate-cincin: cincin 1.6s ease-out infinite;
+  --animate-melayang-1: melayang-1 11s ease-in-out infinite alternate;
+  --animate-melayang-2: melayang-2 15s ease-in-out infinite alternate;
+  --animate-melayang-3: melayang-3 19s ease-in-out infinite alternate;
+  --animate-goyang: goyang 7s ease-in-out infinite alternate;
+  /* Slide beranda: lama animasi = DURASI_SLIDE_MS di src/lib/domain/slide.ts */
+  --animate-zoom-pelan: zoom-pelan 2.4s linear both;
+  --animate-progres: progres 2s linear both;
+  /* Latar hero: zoom pelan menutup 2 dtk tampil + 1,2 dtk memudar keluar. */
+  --animate-ken-burns: ken-burns 3.4s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+  --animate-geser-masuk: geser-masuk 600ms cubic-bezier(0.2, 0, 0, 1) both;
+  --animate-masuk-halaman: masuk-halaman 520ms cubic-bezier(0.2, 0, 0, 1) both;
+  --animate-sapuan: sapuan 900ms cubic-bezier(0.2, 0, 0, 1) 600ms both;
+  --animate-gulir-isyarat: gulir-isyarat 1.8s ease-in-out infinite;
+  /* Ornamen Nusantara: tampuk berputar sangat pelan, pita songket bergeser. */
+  --animate-putar-pelan: putar 40s linear infinite;
+  --animate-pita: pita-geser 30s linear infinite;
+  --animate-kilau: kilau 3.2s ease-in-out infinite;
+
+  @keyframes putar {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes cap-masuk {
+    from {
+      opacity: 0;
+      transform: scale(1.25);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes sheet-naik {
+    from {
+      transform: translateY(16px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  @keyframes muncul {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes naik {
+    from {
+      opacity: 0;
+      transform: translateY(22px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes pin-jatuh {
+    from {
+      opacity: 0;
+      transform: translateY(-14px) scale(0.5);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  @keyframes cincin {
+    from {
+      opacity: 0.9;
+      transform: translateX(-50%) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(-50%) scale(2.1);
+    }
+  }
+  @keyframes melayang-1 {
+    from {
+      transform: translate3d(0, 0, 0) rotate(-14deg);
+    }
+    to {
+      transform: translate3d(22px, 34px, 0) rotate(12deg);
+    }
+  }
+  @keyframes melayang-2 {
+    from {
+      transform: translate3d(0, 0, 0) rotate(18deg);
+    }
+    to {
+      transform: translate3d(-26px, 42px, 0) rotate(-10deg);
+    }
+  }
+  @keyframes melayang-3 {
+    from {
+      transform: translate3d(0, 0, 0) rotate(-4deg);
+    }
+    to {
+      transform: translate3d(16px, -30px, 0) rotate(22deg);
+    }
+  }
+  @keyframes goyang {
+    from {
+      transform: rotate(-2.5deg);
+    }
+    to {
+      transform: rotate(2.5deg);
+    }
+  }
+  @keyframes zoom-pelan {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.07);
+    }
+  }
+  @keyframes ken-burns {
+    from {
+      transform: scale(1.02);
+    }
+    to {
+      transform: scale(1.14);
+    }
+  }
+  @keyframes geser-masuk {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes masuk-halaman {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      /* none (bukan translateY(0)) agar tidak menjadi containing block bagi elemen fixed/sticky. */
+      transform: none;
+    }
+  }
+  @keyframes sapuan {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+  @keyframes gulir-isyarat {
+    0%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.5;
+    }
+    50% {
+      transform: translateY(6px);
+      opacity: 1;
+    }
+  }
+  @keyframes pita-geser {
+    from {
+      background-position-x: 0;
+    }
+    to {
+      background-position-x: 480px;
+    }
+  }
+  @keyframes kilau {
+    0%,
+    100% {
+      opacity: 0.55;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+  @keyframes progres {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+}
+
+@theme inline {
+  --font-*: initial;
+  --font-sans: var(--font-atkinson), system-ui, sans-serif;
+  --font-kode: var(--font-atkinson-mono), ui-monospace, monospace;
+  --default-font-family: var(--font-sans);
+  --default-mono-font-family: var(--font-kode);
+}
+
+:root {
+  --ukuran-publik: 1.0625rem; /* 17 px di HP */
+  --ukuran-h3: 1.25rem; /* 20 px */
+  color-scheme: light;
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --ukuran-publik: 1.125rem; /* 18 px di laptop */
+    --ukuran-h3: 1.375rem; /* 22 px */
+  }
+}
+
+/* Pengaturan ukuran teks (aksesibilitas): skala seluruh rem. */
+html[data-ukuran-teks="besar"] {
+  font-size: 112.5%;
+}
+html[data-ukuran-teks="sangat-besar"] {
+  font-size: 125%;
+}
+
+/* Mode kontras tinggi: pengganti dark mode. */
+html[data-kontras="tinggi"] {
+  --color-aspal-2: #1c2620;
+  --color-garis: #66705f;
+  --color-garis-tegas: #1c2620;
+  --color-abu: #ffffff;
+  --color-pasir: #ffffff;
+  --color-lumut: #ffffff;
+  --color-lumut-2: #ffffff;
+}
+/* Corak latar dimatikan di kontras tinggi. */
+html[data-kontras="tinggi"] .latar-nusantara,
+html[data-kontras="tinggi"] .latar-lumut,
+html[data-kontras="tinggi"] .latar-pita-emas,
+html[data-kontras="tinggi"] .latar-staf {
+  background-image: none;
+  background-color: #ffffff;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background-color: var(--color-putih);
+    color: var(--color-aspal);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-lumut);
+    color: var(--color-hutan);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 700;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Fokus keyboard: cincin aspal 2 px dikelilingi kuning-rambu 3 px. */
+  :focus-visible {
+    outline: 2px solid var(--color-aspal);
+    outline-offset: 0;
+    box-shadow: 0 0 0 5px var(--color-kuning);
+  }
+
+  /* Teks isian minimal 16 px agar iPhone tidak memperbesar layar. */
+  input,
+  select,
+  textarea {
+    font-size: max(1rem, 1em);
+  }
+
+  table {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Tautan di dalam teks: biru dan selalu bergaris bawah. */
+@utility tautan {
+  color: var(--color-biru);
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  &:hover {
+    text-decoration-thickness: 2px;
+  }
+}
+
+@utility duration-sheet {
+  transition-duration: 220ms;
+}
+
+/* Penundaan animasi masuk: tunda-1 = 80 ms, tunda-2 = 160 ms, dst. */
+@utility tunda-* {
+  animation-delay: calc(--value(integer) * 80ms);
+}
+
+/* Checkbox & radio: border 2 px garis-tegas, tercentang = hutan. */
+@utility centang-rambu {
+  appearance: none;
+  border: 2px solid var(--color-garis-tegas);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-putih);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 80%;
+  transition:
+    background-color 150ms var(--ease-keluar),
+    border-color 150ms var(--ease-keluar);
+  &:checked {
+    border-color: var(--color-hutan);
+    background-color: var(--color-hutan);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3L13 4.5' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  }
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+@utility radio-rambu {
+  appearance: none;
+  border: 2px solid var(--color-garis-tegas);
+  border-radius: 9999px;
+  background-color: var(--color-putih);
+  transition:
+    background-color 150ms var(--ease-keluar),
+    border-color 150ms var(--ease-keluar);
+  &:checked {
+    border-color: var(--color-hutan);
+    background-color: var(--color-hutan);
+    box-shadow: inset 0 0 0 4px var(--color-putih);
+  }
+  &:checked:focus-visible {
+    box-shadow:
+      inset 0 0 0 4px var(--color-putih),
+      0 0 0 5px var(--color-kuning);
+  }
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+/*
+ * Corak Nusantara Medan. Datar, bergaya garis, terinspirasi ragam hias Melayu
+ * Deli (tampuk manggis, pucuk rebung) dan Batak (ragi hotang). Kode warna
+ * mentah dan gradien hanya boleh di berkas ini: SVG data URI tidak bisa
+ * membaca variabel CSS.
+ *
+ * latar-nusantara : latar PUTIH dengan corak garis hijau sangat tipis
+ * latar-lumut     : latar hijau lumut muda dengan corak yang sama, lebih tegas
+ * corak-ragi      : kisi belah ketupat (ragi hotang) di atas hijau hutan
+ * corak-ragi-merah: kisi yang sama di atas merah medan (slide teks bawaan)
+ * rebung-warna    : deret pucuk rebung merah dengan inti emas (tepi bawah hero)
+ * rebung-putih    : deret pucuk rebung putih (tepi bawah bagian berlatar gelap)
+ * rebung-hutan    : deret pucuk rebung hijau hutan (menempel di atas footer)
+ * tirai-foto      : lapisan gelap tipis di bawah foto agar teks keterangan terbaca
+ */
+@utility latar-nusantara {
+  /* Kertas hangat + cahaya lumut (kiri atas) dan emas (kanan) + corak tipis di atasnya. */
+  background-color: #f7f4ea;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg fill='none' stroke='%2317432d' stroke-opacity='.08' stroke-width='1.2' stroke-linejoin='round'%3E%3Cpath d='M80 54 84.6 68.9 98.4 61.6 91.1 75.4 106 80 91.1 84.6 98.4 98.4 84.6 91.1 80 106 75.4 91.1 61.6 98.4 68.9 84.6 54 80 68.9 75.4 61.6 61.6 75.4 68.9Z'/%3E%3Ccircle cx='80' cy='80' r='4'/%3E%3Ccircle cx='80' cy='80' r='36' stroke-dasharray='2 5'/%3E%3Cpath d='M0 -26 26 0 0 26 -26 0ZM0 -16 16 0 0 16 -16 0ZM0 -7 7 0 0 7 -7 0Z'/%3E%3Cpath d='M160 -26 186 0 160 26 134 0ZM160 -16 176 0 160 16 144 0ZM160 -7 167 0 160 7 153 0Z'/%3E%3Cpath d='M0 134 26 160 0 186 -26 160ZM0 144 16 160 0 176 -16 160ZM0 153 7 160 0 167 -7 160Z'/%3E%3Cpath d='M160 134 186 160 160 186 134 160ZM160 144 176 160 160 176 144 160ZM160 153 167 160 160 167 153 160Z'/%3E%3Cpath d='M62 160 80 142 98 160M70 160 80 150 90 160'/%3E%3C/g%3E%3C/svg%3E"),
+    radial-gradient(60rem 36rem at 0% 0%, rgb(228 239 220 / 0.95), rgb(228 239 220 / 0) 70%),
+    radial-gradient(48rem 32rem at 100% 38%, rgb(201 150 43 / 0.13), rgb(201 150 43 / 0) 70%),
+    radial-gradient(56rem 34rem at 10% 82%, rgb(59 139 90 / 0.1), rgb(59 139 90 / 0) 70%),
+    linear-gradient(180deg, #fbf9f2 0%, #f3efe2 100%);
+  background-size: 160px 160px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+  background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+}
+
+@utility latar-lumut {
+  background-color: var(--color-lumut-2);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg fill='none' stroke='%2317432d' stroke-opacity='.12' stroke-width='1.2' stroke-linejoin='round'%3E%3Cpath d='M80 54 84.6 68.9 98.4 61.6 91.1 75.4 106 80 91.1 84.6 98.4 98.4 84.6 91.1 80 106 75.4 91.1 61.6 98.4 68.9 84.6 54 80 68.9 75.4 61.6 61.6 75.4 68.9Z'/%3E%3Ccircle cx='80' cy='80' r='4'/%3E%3Ccircle cx='80' cy='80' r='36' stroke-dasharray='2 5'/%3E%3Cpath d='M0 -26 26 0 0 26 -26 0ZM0 -16 16 0 0 16 -16 0ZM0 -7 7 0 0 7 -7 0Z'/%3E%3Cpath d='M160 -26 186 0 160 26 134 0ZM160 -16 176 0 160 16 144 0ZM160 -7 167 0 160 7 153 0Z'/%3E%3Cpath d='M0 134 26 160 0 186 -26 160ZM0 144 16 160 0 176 -16 160ZM0 153 7 160 0 167 -7 160Z'/%3E%3Cpath d='M160 134 186 160 160 186 134 160ZM160 144 176 160 160 176 144 160ZM160 153 167 160 160 167 153 160Z'/%3E%3Cpath d='M62 160 80 142 98 160M70 160 80 150 90 160'/%3E%3C/g%3E%3C/svg%3E"),
+    radial-gradient(44rem 28rem at 85% 50%, rgb(59 139 90 / 0.16), rgb(59 139 90 / 0) 70%),
+    linear-gradient(135deg, #eef6e8 0%, #e2eed8 100%);
+  background-size: 160px 160px, 100% 100%, 100% 100%;
+  background-repeat: repeat, no-repeat, no-repeat;
+}
+
+/* Pita emas lembut untuk bagian penjelasan ("Bagaimana laporan ditangani"). */
+@utility latar-pita-emas {
+  background-color: #f8efd9;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cpath d='M28 2 54 28 28 54 2 28Z' fill='none' stroke='%23c9962b' stroke-opacity='.22' stroke-width='1.2'/%3E%3Cpath d='M28 22 34 28 28 34 22 28Z' fill='%23c9962b' fill-opacity='.18'/%3E%3C/svg%3E"),
+    radial-gradient(50rem 30rem at 0% 100%, rgb(228 239 220 / 0.9), rgb(228 239 220 / 0) 70%),
+    linear-gradient(180deg, #fbf4e2 0%, #f4e7c8 100%);
+  background-size: 56px 56px, 100% 100%, 100% 100%;
+  background-repeat: repeat, no-repeat, no-repeat;
+}
+
+@utility corak-ragi {
+  background-color: var(--color-hutan);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cpath d='M28 2 54 28 28 54 2 28Z' fill='none' stroke='%232d6a4b' stroke-width='1.5'/%3E%3Cpath d='M28 16 40 28 28 40 16 28Z' fill='none' stroke='%232d6a4b' stroke-width='1.5'/%3E%3Cpath d='M28 24 32 28 28 32 24 28Z' fill='%232d6a4b'/%3E%3Cpath d='M0 0 4 0 0 4ZM56 0 52 0 56 4ZM0 56 4 56 0 52ZM56 56 52 56 56 52Z' fill='%232d6a4b'/%3E%3C/svg%3E"),
+    radial-gradient(52rem 34rem at 78% 30%, rgb(59 139 90 / 0.55), rgb(59 139 90 / 0) 70%),
+    radial-gradient(40rem 26rem at 8% 100%, rgb(201 150 43 / 0.22), rgb(201 150 43 / 0) 70%),
+    linear-gradient(160deg, #1d5236 0%, #17432d 55%, #10321f 100%);
+  background-size: 56px 56px, 100% 100%, 100% 100%, 100% 100%;
+  background-repeat: repeat, no-repeat, no-repeat, no-repeat;
+}
+
+/* Bayangan logo transparan agar tepinya terbaca di latar gelap maupun terang. */
+@utility bayang-logo {
+  filter: drop-shadow(0 2px 6px rgb(8 24 15 / 0.35)) drop-shadow(0 0 1px rgb(8 24 15 / 0.4));
+}
+
+/*
+ * Pita songket: deret motif berulang (belah ketupat + pucuk rebung + tampuk)
+ * untuk pemisah antarbagian. Bergeser pelan (animate-pita).
+ */
+@utility pita-songket {
+  background-repeat: repeat-x;
+  background-position: 0 center;
+  background-size: 48px 24px;
+}
+@utility pita-songket-emas {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='24' viewBox='0 0 48 24'%3E%3Cg fill='none' stroke='%23c9962b' stroke-width='1.4' stroke-linejoin='round'%3E%3Cpath d='M0 12H48' stroke-opacity='.45'/%3E%3Cpath d='M24 2 34 12 24 22 14 12Z'/%3E%3Cpath d='M24 7 29 12 24 17 19 12Z' fill='%23c9962b' fill-opacity='.35'/%3E%3Cpath d='M2 22 7 14 12 22M36 22 41 14 46 22' stroke-opacity='.7'/%3E%3Cpath d='M2 2 7 10 12 2M36 2 41 10 46 2' stroke-opacity='.7'/%3E%3C/g%3E%3C/svg%3E");
+}
+@utility pita-songket-hutan {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='24' viewBox='0 0 48 24'%3E%3Cg fill='none' stroke='%2317432d' stroke-width='1.4' stroke-linejoin='round'%3E%3Cpath d='M0 12H48' stroke-opacity='.3'/%3E%3Cpath d='M24 2 34 12 24 22 14 12Z' stroke-opacity='.6'/%3E%3Cpath d='M24 7 29 12 24 17 19 12Z' fill='%23c9962b' stroke='%23c9962b'/%3E%3Cpath d='M2 22 7 14 12 22M36 22 41 14 46 22M2 2 7 10 12 2M36 2 41 10 46 2' stroke-opacity='.45'/%3E%3C/g%3E%3C/svg%3E");
+}
+@utility pita-songket-putih {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='24' viewBox='0 0 48 24'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1.4' stroke-linejoin='round'%3E%3Cpath d='M0 12H48' stroke-opacity='.3'/%3E%3Cpath d='M24 2 34 12 24 22 14 12Z' stroke-opacity='.7'/%3E%3Cpath d='M24 7 29 12 24 17 19 12Z' fill='%23ffc629' stroke='%23ffc629'/%3E%3Cpath d='M2 22 7 14 12 22M36 22 41 14 46 22M2 2 7 10 12 2M36 2 41 10 46 2' stroke-opacity='.45'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Latar area staf (admin/supervisor/petugas): kertas hangat + corak tipis sekali. */
+@utility latar-staf {
+  background-color: #f8f6ef;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%2317432d' stroke-opacity='.05' stroke-width='1.2'%3E%3Cpath d='M60 34 86 60 60 86 34 60Z'/%3E%3Cpath d='M60 48 72 60 60 72 48 60Z'/%3E%3Cpath d='M0 0 14 14M120 0 106 14M0 120 14 106M120 120 106 106'/%3E%3C/g%3E%3C/svg%3E"),
+    radial-gradient(50rem 30rem at 100% 0%, rgb(228 239 220 / 0.7), rgb(228 239 220 / 0) 70%);
+  background-size: 120px 120px, 100% 100%;
+  background-repeat: repeat, no-repeat;
+  background-attachment: scroll, fixed;
+}
+
+/* Gradien emas tipis (bilah kemajuan gulir). */
+@utility bilah-emas {
+  background-image: linear-gradient(90deg, #c9962b, #ffc629 55%, #3b8b5a);
+}
+
+/* Garis emas judul bagian tergambar saat bagiannya muncul di layar. */
+[data-muncul] .garis-judul {
+  transform-origin: left;
+  transition: transform 800ms var(--ease-keluar) 250ms;
+}
+@media (scripting: enabled) {
+  [data-muncul]:not([data-terlihat]) .garis-judul {
+    transform: scaleX(0);
+  }
+}
+
+/* Kartu interaktif: kilau tipis menyapu saat disorot (transform saja, ringan). */
+.kartu-kilau {
+  position: relative;
+  overflow: hidden;
+}
+.kartu-kilau::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, rgb(255 255 255 / 0) 30%, rgb(255 255 255 / 0.55) 50%, rgb(255 255 255 / 0) 70%);
+  transform: translateX(-120%);
+  transition: transform 700ms var(--ease-keluar);
+  pointer-events: none;
+}
+.kartu-kilau:hover::after {
+  transform: translateX(120%);
+}
+
+@utility corak-ragi-merah {
+  background-color: var(--color-medan-merah);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cpath d='M28 2 54 28 28 54 2 28Z' fill='none' stroke='%23b8363b' stroke-width='1.5'/%3E%3Cpath d='M28 16 40 28 28 40 16 28Z' fill='none' stroke='%23b8363b' stroke-width='1.5'/%3E%3Cpath d='M28 24 32 28 28 32 24 28Z' fill='%23b8363b'/%3E%3C/svg%3E");
+  background-size: 56px 56px;
+}
+
+@utility rebung-warna {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='16' viewBox='0 0 32 16'%3E%3Cpath d='M0 16 16 0 32 16Z' fill='%23a3191e'/%3E%3Cpath d='M9 16 16 7 23 16Z' fill='%23ffc629'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: left bottom;
+  background-size: 32px 16px;
+}
+
+@utility rebung-putih {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='16' viewBox='0 0 32 16'%3E%3Cpath d='M0 16 16 2 32 16Z' fill='%23ffffff'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: left bottom;
+  background-size: 32px 16px;
+}
+
+@utility rebung-hutan {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='16' viewBox='0 0 32 16'%3E%3Cpath d='M0 16 16 2 32 16Z' fill='%2317432d'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: left bottom;
+  background-size: 32px 16px;
+}
+
+@utility tirai-foto {
+  background-image: linear-gradient(to top, rgb(12 26 18 / 0.88), rgb(12 26 18 / 0.55) 55%, rgb(12 26 18 / 0));
+}
+
+/* Tirai hero di atas foto: gelap di sisi teks (kiri), lebih terang di kanan. */
+@utility tirai-hero {
+  background-image:
+    linear-gradient(180deg, rgb(10 30 19 / 0.55) 0%, rgb(10 30 19 / 0) 22%, rgb(10 30 19 / 0) 70%, rgb(10 30 19 / 0.7) 100%),
+    linear-gradient(90deg, rgb(10 30 19 / 0.9) 0%, rgb(10 30 19 / 0.72) 42%, rgb(10 30 19 / 0.3) 75%, rgb(10 30 19 / 0.15) 100%);
+  @media (max-width: 63.99rem) {
+    background-image: linear-gradient(180deg, rgb(10 30 19 / 0.78) 0%, rgb(10 30 19 / 0.7) 55%, rgb(10 30 19 / 0.85) 100%);
+  }
+}
+/* Tanpa foto: hanya sedikit bayangan di atas corak hutan. */
+@utility tirai-hero-tipis {
+  background-image: linear-gradient(90deg, rgb(10 30 19 / 0.35) 0%, rgb(10 30 19 / 0) 70%);
+}
+
+/* Header saat halaman digulir: sedikit bayangan agar terpisah dari isi. */
+[data-header-gulir="ya"] {
+  box-shadow: 0 6px 24px rgb(23 67 45 / 0.1);
+  border-color: transparent;
+}
+
+/* Gulir halus untuk tautan jangkar; bayangan header tidak menutupi judul. */
+:target {
+  scroll-margin-top: 5.5rem;
+}
+
+/* Muncul saat digulir (komponen Muncul). Tanpa skrip, konten tetap tampil. */
+[data-muncul] {
+  transition:
+    opacity 700ms var(--ease-keluar),
+    transform 700ms var(--ease-keluar);
+}
+@media (scripting: enabled) {
+  [data-muncul]:not([data-terlihat]) {
+    opacity: 0;
+    transform: translateY(22px);
+    /* Jaring pengaman: bila skrip gagal berjalan, tampilkan setelah 3 detik. */
+    animation: muncul-darurat 0.01s 3s forwards;
+  }
+}
+@keyframes muncul-darurat {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+[data-muncul][data-tunda="1"] {
+  transition-delay: 90ms;
+}
+[data-muncul][data-tunda="2"] {
+  transition-delay: 180ms;
+}
+[data-muncul][data-tunda="3"] {
+  transition-delay: 270ms;
+}
+[data-muncul][data-tunda="4"] {
+  transition-delay: 360ms;
+}
+[data-muncul][data-tunda="5"] {
+  transition-delay: 450ms;
+}
+
+/* Kontrol peta MapLibre: target sentuh 44 px dan tampilan senada. */
+html .maplibregl-ctrl-group {
+  overflow: hidden;
+  border: 1px solid var(--color-garis);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-embun);
+}
+html .maplibregl-ctrl-group button {
+  width: 44px;
+  height: 44px;
+}
+html .maplibregl-ctrl-attrib {
+  background-color: rgb(255 255 255 / 0.88);
+  font-family: var(--font-sans);
+}
+html .maplibregl-ctrl-attrib a {
+  color: var(--color-biru);
+}
+html .maplibregl-marker {
+  will-change: transform;
+}
+
+/* Bottom nav memperhitungkan safe area HP. */
+@utility pb-aman {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Penggeser sebelum–sesudah: posisi dari variabel --posisi (diatur lewat ref). */
+.penggeser-bukti {
+  --posisi: 50%;
+}
+.penggeser-sebelum {
+  clip-path: inset(0 calc(100% - var(--posisi)) 0 0);
+}
+.penggeser-pegangan {
+  left: var(--posisi);
+}
+.penggeser-bukti:has(input:focus-visible) {
+  outline: 2px solid var(--color-aspal);
+  box-shadow: 0 0 0 5px var(--color-kuning);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  background: #f7f2e7;
+}
+
+.corak-ragi {
+  background-color: #21483a;
+  background-image:
+    linear-gradient(rgb(33 72 58 / 0.9), rgb(33 72 58 / 0.9)),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke='%23d7b56d' stroke-opacity='.15' stroke-width='1.2'%3E%3Cpath d='M48 10 86 48 48 86 10 48Z'/%3E%3Cpath d='M48 27 69 48 48 69 27 48Z'/%3E%3Cpath d='M48 38 58 48 48 58 38 48Z'/%3E%3Cpath d='M10 10 22 22M74 10 86 22M10 86 22 74M74 86 86 74'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: auto, 96px 96px;
+}
+
+.latar-nusantara,
+.latar-lumut,
+.latar-pita-emas {
+  background-image: none;
+}
+
+.latar-nusantara {
+  background-color: #f7f2e7;
+}
+
+.latar-lumut {
+  background-color: #e7eee2;
+}
+
+.latar-pita-emas {
+  background-color: #f4ead2;
+}
+
+.judul-publik {
+  max-width: 14ch;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.65rem, 7vw, 5.25rem);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 0.99;
+}
+
+.judul-publik span {
+  font-family: inherit;
+}
+
+.kartu-kilau {
+  background: #fffdf8;
+  border-color: #d8d4c7;
+  box-shadow: 0 1px 2px rgb(30 48 39 / 0.06);
+}
+
+.kartu-kilau::after {
+  display: none;
+}
+
+.kartu-kilau:hover {
+  border-color: #8a6a32;
+  box-shadow: 0 8px 24px rgb(30 48 39 / 0.12);
+}
+
+@media (max-width: 47.99rem) {
+  .judul-publik {
+    max-width: 11ch;
+    font-size: clamp(2.35rem, 11vw, 3.7rem);
+    line-height: 1.04;
+  }
+}
+
+@media print {
+  .tanpa-cetak {
+    display: none !important;
+  }
+}
+
+
+@media (max-width: 640px) {
+  [data-muncul] {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@media (max-width: 640px) {
+  [data-muncul]:not([data-terlihat]) {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+}
+
+.judul-publik {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+}
+
+.judul-publik span {
+  font-family: inherit;
+}
+
+@media (min-width: 48rem) {
+  .judul-publik {
+    max-width: 12ch;
+    line-height: 1.02;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .judul-publik {
+    line-height: 1.08;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .judul-publik,
+  [data-muncul],
+  .animate-naik,
+  .animate-geser-masuk,
+  .animate-masuk-halaman,
+  .animate-ken-burns,
+  .animate-pita,
+  .animate-goyang,
+  .animate-melayang-1,
+  .animate-melayang-2,
+  .animate-melayang-3 {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
