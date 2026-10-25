@@ -13,7 +13,7 @@ export default function GalatGlobal({ error, retry }: { error: Error & { digest?
         <title>Halaman gagal dimuat | ONE PORTAL</title>
         <main className="mx-auto flex min-h-dvh w-full max-w-daftar flex-col justify-center gap-6 px-4 py-12">
           <p className="font-bold">ONE PORTAL</p>
-          <h1 className="text-h1">Halaman ini gagal dimuat</h1>
+          <h1 className="text-h1">Halaman gagal dimuat</h1>
           <p className="max-w-baca">
             Ada gangguan di server kami, bukan kesalahan Anda. Coba muat ulang dalam beberapa detik. Untuk keadaan darurat
             hubungi 112.
